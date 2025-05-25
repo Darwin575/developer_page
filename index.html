@@ -97,31 +97,34 @@
       height: 120px;
       object-fit: contain;
       border-radius: 15px;
-      border: 3px solid #457B9D;
-      box-shadow: 0 10px 25px rgba(69,123,157,0.3);
-      transition: all 0.3s ease;
-      animation: logoFloat 6s ease-in-out infinite;
-    }
-    
-    .department-logo {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-      border-radius: 15px;
-      border: 3px solid #81c784;
-      box-shadow: 0 10px 25px rgba(129,199,132,0.3);
+      border: 3px solid #00A8E8;
+      box-shadow: 0 10px 25px #00A8E8;
       transition: all 0.3s ease;
       animation: logoFloat 6s ease-in-out infinite 0.5s;
     }
     
-    .university-logo:hover,
-    .department-logo:hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 15px 35px rgba(69,123,157,0.4);
+    .department-logo {
+      width: 119px;
+      height: 118px;
+      object-fit: contain;
+      border-radius: 15px;
+      border: 3px solid #81c784;
+      box-shadow: 0 10px 25px gold;
+      transition: all 0.3s ease;
+      animation: logoFloat 6s ease-in-out infinite 0.5s;
     }
     
+    /* .university-logo:hover,
     .department-logo:hover {
-      box-shadow: 0 15px 35px rgba(129,199,132,0.4);
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 15px 35px yellowgreen;
+    } */
+    
+    .department-logo:hover {
+      box-shadow: 0 15px 35px gold;
+    }
+    .university-logo:hover {
+      box-shadow: 0 15px 35px #00A8E8;
     }
     
     @keyframes logoFloat {
@@ -145,7 +148,7 @@
     
     .department-name {
       font-weight: 500;
-      color: #81c784;
+      color: gold;
       font-size: 1.1rem;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
       margin-bottom: 0;
