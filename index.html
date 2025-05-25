@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet the Developers - DTS</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #2F4050;
+      color: #EEE;
+    }
+    h2, h3 {
+      font-weight: 700;
+      color: #F1FAEE;
+    }
+    .lead {
+      color: #CEE0DC;
+    }
+
+    /* CARD DEFAULT STATE */
+    .card {
+      border: none;
+      border-radius: 15px;
+      background: #fff;
+      transform: translateY(0) scale(1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* CARD HOVER STATE */
+    .card:hover {
+      transform: translateY(-12px) scale(1.04);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      margin: 20px auto 0;
+      border-radius: 50%;
+      border: 4px solid #457B9D;
+    }
+    .btn-linkedin {
+      background-color: #0077b5;
+      color: #fff;
+    }
+    .btn-linkedin:hover {
+      background-color: #005983;
+    }
+    .section-divider {
+      border-top: 2px dashed #ccc;
+      margin: 4rem 0;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    }
+    .footer-note {
+      font-size: 0.9rem;
+      color: #CED4DA;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .developer-section {
+      background: linear-gradient(135deg, #3A4A5A, #2F4050);
+      padding: 4rem 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container developer-section text-center">
+    <h2 class="mb-3">Meet the Developers of DTS</h2>
+    <p class="lead mb-4">
+      This Document Tracking System (DTS) was developed by <strong>Team BJMP Peeps</strong> to modernize and streamline internal document workflows within BJMP Regional Office X.
+    </p>
+
+    <div class="row justify-content-center">
+      <!-- Gerald -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 shadow glass">
+          <img src="developer_pics/1683161642266.jpg" alt="Web Developer" class="card-img-top" />
+          <div class="card-body text-dark">
+            <h5 class="card-title">Gerald Darwin Lariosa</h5>
+            <p class="text-muted">Web Developer</p>
+            <p class="small">Backend architecture & full system implementation.</p>
+            <a href="https://www.linkedin.com/in/gerald-darwin-lariosa-609453275" target="_blank" class="btn btn-linkedin btn-sm">
+              <i class="fab fa-linkedin me-1"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Erica -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 shadow glass">
+          <img src="developer_pics/1737816712551.jpg" alt="System Analyst" class="card-img-top" />
+          <div class="card-body text-dark">
+            <h5 class="card-title">Erica Mae Cañete</h5>
+            <p class="text-muted">System Analyst</p>
+            <p class="small">Bridged user needs to technical specs.</p>
+            <a href="https://www.linkedin.com/in/erica-mae-ca%C3%B1ete-b509b9321" target="_blank" class="btn btn-linkedin btn-sm">
+              <i class="fab fa-linkedin me-1"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Kristal -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 shadow glass">
+          <img src="developer_pics/1748139104661.jpg" alt="System Analyst" class="card-img-top" />
+          <div class="card-body text-dark">
+            <h5 class="card-title">Kristal Loren Ajon</h5>
+            <p class="text-muted">System Analyst</p>
+            <p class="small">Data flow analysis & UI conceptualization.</p>
+            <a href="https://www.linkedin.com/in/kristal-loren-ajon-28b830367" target="_blank" class="btn btn-linkedin btn-sm">
+              <i class="fab fa-linkedin me-1"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Febby -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 shadow glass">
+          <img src="/DTS/img/developer_analyst3.jpg" alt="System Analyst" class="card-img-top" />
+          <div class="card-body text-dark">
+            <h5 class="card-title">Febby Kim Malacaste</h5>
+            <p class="text-muted">System Analyst</p>
+            <p class="small">Requirement gathering & practical design.</p>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank" class="btn btn-linkedin btn-sm">
+              <i class="fab fa-linkedin me-1"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Academic Guidance -->
+  <div class="container mt-5">
+    <hr class="section-divider" />
+    <h3 class="text-center mb-4">Academic Guidance and Evaluation</h3>
+    <div class="row justify-content-center">
+      <div class="col-md-6 mb-4">
+        <div class="card p-4 shadow-sm glass">
+          <h5 class="card-title">Mr. Rhogiel V. Andoy</h5>
+          <p class="text-muted">Thesis Adviser</p>
+          <p class="small">
+            “Mr. Rhogiel V. Andoy guided us throughout the DTS development with expertise and vision.”
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card p-4 shadow-sm glass">
+          <h5 class="card-title">Panel Members</h5>
+          <ul class="list-unstyled small">
+            <li><strong>Dr. May Marie P. Talandron-Felipe</strong> – Department Head, Computer Science</li>
+            <li><strong>Engr. Jasper Jay A. Jementiza</strong> – Department Head, Computer Engineering</li>
+            <li><strong>Engr. Wilfred Clark J. Sevilla</strong> – Department Head, Cybersecurity</li>
+          </ul>
+          <p class="small">
+            Their valuable feedback ensured our project meets academic standards.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Special Acknowledgments -->
+  <div class="container mt-5 mb-5">
+    <hr class="section-divider" />
+    <h3 class="text-center mb-4">Special Acknowledgments</h3>
+    <div class="card p-4 mx-auto shadow-sm glass" style="max-width: 700px;">
+      <p class="text-center mb-3">
+        With sincere gratitude to the BJMP - RICTMD personnel whose support made this system a success.
+      </p>
+      <ul class="list-unstyled text-center small">
+        <li><strong>Chief Jail Officer Archiel T Andoy</strong></li>
+        <li><strong>Jail Officer  Syril Troy J Babate</strong></li>
+        <li><strong>Jail Officer  Jefferson A Pael</strong></li>
+        <li><strong>Jail Officer  Louie D Rosales</strong></li>
+        <li><strong>Jail Officer  Nico Cabano</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-note">
+    &copy; 2025 DTS | Designed with 💙 by Team BJMP Peeps
+  </div>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
