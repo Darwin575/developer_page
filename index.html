@@ -114,13 +114,12 @@
     }
     
     .typewriter {
-      overflow: hidden;
       border-right: 3px solid #457B9D;
-      white-space: nowrap;
-      animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+      animation: blink 0.75s step-end infinite;
       font-size: 1.2rem;
-      max-width: fit-content;
+      max-width: 800px;
       margin: 0 auto;
+      min-height: 3em;
     }
     
     @keyframes typing {
@@ -393,7 +392,7 @@
   <div class="container developer-section text-center">
     <h2 class="hero-title fade-in">Meet the Developers</h2>
     <div class="typewriter lead mb-4">
-      Crafted by Team BJMP Peeps - Where Innovation Meets Excellence
+      This Document Tracking System (DTS) was developed by <strong>Team BJMP Peeps</strong> to modernize and streamline internal document workflows within BJMP Regional Office X.
     </div>
 
     <div class="row justify-content-center">
@@ -637,15 +636,15 @@
     // Typewriter Effect
     function initTypewriter() {
       const typewriter = document.querySelector('.typewriter');
-      const text = typewriter.textContent;
-      typewriter.textContent = '';
+      const text = typewriter.innerHTML;
+      typewriter.innerHTML = '';
       
       setTimeout(() => {
         let i = 0;
         const timer = setInterval(() => {
-          typewriter.textContent += text.charAt(i);
+          typewriter.innerHTML = text.substring(0, i + 1);
           i++;
-          if (i > text.length) {
+          if (i >= text.length) {
             clearInterval(timer);
             setTimeout(() => {
               typewriter.style.borderRight = 'none';
