@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Digital Document Management Poster</title>
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      /* Import Google Fonts */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      /* Reset & Base Settings */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1e40af;
+        --accent-color: #f59e0b;
+        --accent-light: #fbbf24;
+        --background-dark: #0f172a;
+        --background-light: #f8fafc;
+        --surface: rgba(255, 255, 255, 0.95);
+        --surface-hover: rgba(255, 255, 255, 0.98);
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --border: rgba(148, 163, 184, 0.2);
+        --shadow: rgba(0, 0, 0, 0.1);
+        --shadow-lg: rgba(0, 0, 0, 0.15);
+      }
+
+      html,
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        body {
+          background: linear-gradient(135deg, #000000 0%, #1e293b 100%);
+        }
+
+        color: var(--text-primary);
+        position: relative;
+      }
+
+      /* Three.js Canvas: Always rendered behind everything */
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      /* Fixed Navbar with glass morphism */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        height: 70px;
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+        padding: 0 2rem;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        overflow-x: auto;
+        flex: 1;
+        padding-bottom: 2px;
+      }
+
+      nav ul::-webkit-scrollbar {
+        height: 2px;
+      }
+
+      nav ul::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      nav ul::-webkit-scrollbar-thumb {
+        background: var(--accent-color);
+        border-radius: 1px;
+      }
+
+      nav ul li a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.75rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+        position: relative;
+        display: block;
+      }
+
+      nav ul li a:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      nav ul li a.active {
+        color: #ffffff;
+        background: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--accent-light)
+        );
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* Fixed Footer with glass morphism */
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(148, 163, 184, 0.1);
+        color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 14px;
+        font-weight: 400;
+        z-index: 1000;
+      }
+      /* Make the small text white */
+      footer .text-right a small {
+        color: #ffffff;
+      }
+
+      /* Make just the <strong> text yellow */
+      footer .text-right a small strong {
+        color: #ffd700;
+      }
+
+      /* Main Wrapper */
+      .main-wrapper {
+        margin-top: 70px;
+        margin-bottom: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: calc(100% - 130px);
+        overflow: hidden;
+        padding: 2rem;
+        gap: 1.5rem;
+      }
+
+      /* Static Header with modern card design */
+      .static-header {
+        text-align: center;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 1.5rem;
+        box-shadow: 0 20px 40px var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        max-width: 1000px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .static-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--accent-color),
+          var(--primary-light)
+        );
+        border-radius: 1.5rem 1.5rem 0 0;
+      }
+
+      .static-header .university-info {
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1rem;
+      }
+
+      .static-header .title {
+        font-size: clamp(24px, 4vw, 32px);
+        font-weight: 700;
+        margin: 1rem 0;
+        color: #ffffff;
+        line-height: 1.2;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .static-header .authors {
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 1rem 0 0.5rem;
+        letter-spacing: 0.3px;
+      }
+
+      .static-header .contact {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 400;
+      }
+
+      /* Logo section for school and department */
+      .logo-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .logo-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* Replace the placeholder size/shape with the real logo */
+      .logo-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      /* Hover effect like the placeholder had */
+      .logo-image:hover {
+        opacity: 0.85;
+        border-color: 2px var(--accent-color);
+      }
+
+      /* Content Container */
+      .content-container {
+        flex: 1;
+        width: 100%;
+        max-width: 1000px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 1.5rem;
+        box-shadow: 0 20px 40px var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Section Styling */
+      .section {
+        display: none;
+        width: 100%;
+        height: 100%;
+        padding: 2.5rem;
+        overflow-y: auto;
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .section::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+      }
+
+      .section::-webkit-scrollbar-thumb {
+        background: var(--accent-color);
+        border-radius: 3px;
+      }
+
+      .section h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .section h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--accent-color),
+          var(--accent-light)
+        );
+        border-radius: 2px;
+      }
+
+      .section h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 2rem 0 1rem;
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      .section p {
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .section ul {
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .section li {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 0.75rem;
+        color: rgba(255, 255, 255, 0.9);
+        position: relative;
+      }
+
+      .section li::marker {
+        color: var(--accent-color);
+      }
+
+      .section strong {
+        color: var(--accent-light);
+        font-weight: 600;
+      }
+
+      /* Enhanced Screenshots Section */
+      .screenshot-placeholder {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .screenshot {
+        aspect-ratio: 16/10;
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        border-radius: 1rem;
+        border: 2px dashed var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .screenshot::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .screenshot:hover {
+        border-color: var(--accent-color);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px var(--shadow);
+      }
+
+      .screenshot:hover::before {
+        left: 100%;
+      }
+
+      /* Results Grid */
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .result-card {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-light)
+        );
+        color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        text-align: center;
+        box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+      }
+
+      .result-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .result-card .metric {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .result-card .label {
+        font-size: 14px;
+        opacity: 0.9;
+        font-weight: 500;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .main-wrapper {
+          padding: 1rem;
+          gap: 1rem;
+        }
+
+        .static-header {
+          padding: 1.5rem;
+        }
+
+        .static-header .title {
+          font-size: 24px;
+        }
+
+        .section {
+          padding: 1.5rem;
+        }
+
+        .section h2 {
+          font-size: 28px;
+        }
+
+        nav {
+          padding: 0 1rem;
+        }
+
+        nav ul li a {
+          padding: 0.5rem 1rem;
+          font-size: 13px;
+        }
+
+        .screenshot-placeholder {
+          grid-template-columns: 1fr;
+        }
+
+        .results-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .logo-section {
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .results-grid {
+          grid-template-columns: 1fr;
+        }
+
+        nav ul {
+          gap: 0.25rem;
+        }
+
+        nav ul li a {
+          padding: 0.5rem 0.75rem;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fixed Navbar -->
+    <nav>
+      <ul>
+        <li>
+          <a href="#abstract" data-section="abstract" class="nav-link"
+            >Abstract</a
+          >
+        </li>
+        <li>
+          <a href="#problem" data-section="problem" class="nav-link"
+            >Problem & Objectives</a
+          >
+        </li>
+        <li>
+          <a href="#methodology" data-section="methodology" class="nav-link"
+            >Methodology</a
+          >
+        </li>
+        <li>
+          <a href="#architecture" data-section="architecture" class="nav-link"
+            >Architecture</a
+          >
+        </li>
+        <li>
+          <a href="#results" data-section="results" class="nav-link">Results</a>
+        </li>
+        <li>
+          <a href="#screenshots" data-section="screenshots" class="nav-link"
+            >Screenshots</a
+          >
+        </li>
+        <li>
+          <a href="#conclusion" data-section="conclusion" class="nav-link"
+            >Conclusion</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Static Header -->
+      <div class="static-header">
+        <!-- Logo Section for School and Department -->
+        <div class="logo-section">
+          <!-- University Logo -->
+          <div class="logo-container">
+            <img
+              src="developer_pics/438221397_122100120866293457_5135275130644295074_n.jpg"
+              alt="USTP Logo"
+              class="logo-image"
+            />
+          </div>
+
+          <!-- Department Logo -->
+          <div class="logo-container">
+            <img
+              src="developer_pics/465851472_2000011970420005_8347088136978054787_n.jpg"
+              alt="Department Logo"
+              class="logo-image"
+            />
+          </div>
+        </div>
+
+        <div class="university-info">
+          University of Science and Technology of Southern Philippines •
+          Alubijid Campus<br />
+          Department of Computer Science
+        </div>
+        <div class="title">
+          Digitizing Document Management: A Web‑Based Tracking System for the
+          RICTMD of the BJMP Region 10
+        </div>
+        <div class="authors">
+          Cañete, E. M. F. • Lariosa, G. D. • Malacaste, F. K. • Ajon, K. L.
+        </div>
+        <div class="contact">
+          caneteericamamae@gmail.com | geralddarwindagatan11@gmail.com |
+          malacaste.febbykim@gmail.com | ajonloren@gmail.com
+        </div>
+      </div>
+
+      <!-- Content Container -->
+      <div class="content-container">
+        <!-- Abstract (Default/Home View) -->
+        <section id="abstract" class="section active">
+          <h2>Abstract</h2>
+          <p>
+            This study addresses critical inefficiencies in BJMP Region 10's
+            document routing system through the development of a comprehensive
+            web‑based Document Tracking System (DTS). Utilizing Agile Scrum
+            methodology, the system integrates advanced QR code technology, OTP
+            verification, and real‑time tracking capabilities.
+          </p>
+          <p>
+            Comprehensive evaluation demonstrates significant improvements in
+            accessibility, security, and process transparency, directly
+            contributing to digital transformation initiatives in public
+            administration and aligning with RA 11032 compliance requirements.
+          </p>
+        </section>
+
+        <!-- Problem & Objectives Section -->
+        <section id="problem" class="section">
+          <h2>Problem & Objectives</h2>
+          <p>
+            <strong>Core Problem:</strong> Manual document routing at BJMP
+            RICTMD creates operational bottlenecks, security vulnerabilities,
+            and transparency issues, hindering efficient government service
+            delivery.
+          </p>
+          <h3>Research Objectives</h3>
+          <ul>
+            <li>Develop secure web‑based DTS with QR code integration</li>
+            <li>Implement multi‑layer security (RBAC, OTP, CSRF)</li>
+            <li>Create comprehensive reporting and monitoring system</li>
+            <li>Enable real‑time status notifications and tracking</li>
+          </ul>
+        </section>
+
+        <!-- Methodology Section -->
+        <section id="methodology" class="section">
+          <h2>Methodology</h2>
+          <h3>Development Approach</h3>
+          <p>
+            Agile Scrum Framework with continuous BJMP stakeholder feedback
+            integration is employed throughout the development lifecycle. Key
+            phases include Sprint Planning, Development, Review, and Deployment.
+          </p>
+          <h3>Technology Stack</h3>
+          <ul>
+            <li><strong>Frontend:</strong> HTML5, CSS3, Bootstrap, jQuery</li>
+            <li><strong>Backend:</strong> PHP 7.4+, MySQL 8.0</li>
+            <li><strong>Security:</strong> RBAC, OTP, CSRF Protection</li>
+            <li>
+              <strong>Development Tools:</strong> XAMPP, Git Version Control
+            </li>
+          </ul>
+          <h3>Data Collection Methods</h3>
+          <ul>
+            <li><strong>Surveys:</strong> BJMP staff workflow analysis</li>
+            <li>
+              <strong>Interviews:</strong> Stakeholder requirements gathering
+            </li>
+            <li><strong>SUS Testing:</strong> Usability evaluation metrics</li>
+            <li>
+              <strong>System Logs:</strong> Performance and usage analytics
+            </li>
+          </ul>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="section">
+          <h2>System Architecture</h2>
+          <h3>Three-Tier Architecture</h3>
+          <ul>
+            <li>
+              <strong>Presentation Layer:</strong> Responsive web interface with
+              dynamic content rendering and intuitive user experience design.
+            </li>
+            <li>
+              <strong>Application Layer:</strong> Business logic processing,
+              authentication management, QR code generation, and intelligent
+              routing algorithms.
+            </li>
+            <li>
+              <strong>Data Layer:</strong> MySQL database managing document
+              metadata, user profiles, audit trails, and system configurations.
+            </li>
+          </ul>
+          <h3>Key Components</h3>
+          <ul>
+            <li>
+              <strong>Authentication Module:</strong> Multi-factor
+              authentication with OTP
+            </li>
+            <li>
+              <strong>Document Router:</strong> Intelligent routing based on
+              document types
+            </li>
+            <li>
+              <strong>QR Generator:</strong> Unique identifiers for document
+              tracking
+            </li>
+            <li>
+              <strong>Notification System:</strong> Real-time status updates
+            </li>
+          </ul>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="section">
+          <h2>Results & Findings</h2>
+          <div class="results-grid">
+            <div class="result-card">
+              <div class="metric">92.5</div>
+              <div class="label">SUS Usability Score</div>
+            </div>
+            <div class="result-card">
+              <div class="metric">100%</div>
+              <div class="label">Real‑time Tracking</div>
+            </div>
+            <div class="result-card">
+              <div class="metric">85%</div>
+              <div class="label">Process Efficiency</div>
+            </div>
+            <div class="result-card">
+              <div class="metric">0</div>
+              <div class="label">Security Incidents</div>
+            </div>
+          </div>
+
+          <h3>Key System Features</h3>
+          <ul>
+            <li>
+              <strong>QR Code Integration:</strong> Seamless document
+              identification and tracking
+            </li>
+            <li>
+              <strong>OTP Authentication:</strong> Enhanced security for
+              sensitive operations
+            </li>
+            <li>
+              <strong>Role‑Based Access:</strong> Granular permission management
+            </li>
+            <li>
+              <strong>Real‑time Notifications:</strong> Instant status updates
+              and alerts
+            </li>
+            <li>
+              <strong>Document Analytics:</strong> Comprehensive reporting and
+              insights
+            </li>
+            <li>
+              <strong>Audit Trail Logging:</strong> Complete transaction history
+            </li>
+          </ul>
+        </section>
+
+        <!-- System Screenshots Section -->
+        <section id="screenshots" class="section">
+          <h2>System Screenshots</h2>
+          <p>
+            Visual demonstration of the Document Tracking System interface and
+            functionality:
+          </p>
+          <div class="screenshot-placeholder">
+            <div class="screenshot">Dashboard Overview</div>
+            <div class="screenshot">Document Tracking Interface</div>
+            <div class="screenshot">QR Code Scanner</div>
+            <div class="screenshot">User Management</div>
+            <div class="screenshot">Reports & Analytics</div>
+            <div class="screenshot">Mobile Interface</div>
+          </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section id="conclusion" class="section">
+          <h2>Conclusion & Significance</h2>
+          <p>
+            The developed Document Tracking System demonstrates measurable
+            improvements in operational efficiency, security, and transparency.
+            This digital transformation initiative sets a promising precedent
+            for future innovations in public administration.
+          </p>
+          <h3>Key Achievements</h3>
+          <ul>
+            <li>Successfully digitized manual document routing processes</li>
+            <li>Achieved excellent usability scores (92.5 SUS rating)</li>
+            <li>Implemented robust security measures with zero incidents</li>
+            <li>Enabled real-time tracking and transparency</li>
+          </ul>
+          <h3>Future Implications</h3>
+          <p>
+            Future enhancements include scalability to additional BJMP regional
+            offices, integration with national systems, mobile application
+            development, and continuous improvement through user feedback and
+            emerging technologies.
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <!-- Fixed Footer -->
+    <footer>
+      <div class="text-right">
+        <a href="/DTS/asus.html">
+          <small> Developed by <strong>Team BJMP Peeps </strong> </small>
+        </a>
+      </div>
+    </footer>
+
+    <!-- JavaScript: Enhanced Section Switcher & Three.js Background -->
+    <script>
+      // Enhanced Section Switching with proper active state management
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".nav-link");
+        const sections = document.querySelectorAll(".section");
+
+        // Function to show a specific section
+        function showSection(targetId) {
+          // Hide all sections
+          sections.forEach((section) => {
+            section.classList.remove("active");
+          });
+
+          // Show target section
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            targetSection.classList.add("active");
+          }
+
+          // Update nav active states
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+          });
+
+          const activeLink = document.querySelector(
+            `[data-section="${targetId}"]`
+          );
+          if (activeLink) {
+            activeLink.classList.add("active");
+          }
+        }
+
+        // Handle nav link clicks
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("data-section");
+            showSection(targetId);
+
+            // Update URL hash without triggering hashchange
+            history.pushState(null, null, `#${targetId}`);
+          });
+        });
+
+        // Handle browser back/forward buttons
+        window.addEventListener("popstate", function () {
+          const hash = window.location.hash.substring(1) || "abstract";
+          showSection(hash);
+        });
+
+        // Initialize based on current hash or default to abstract
+        const initialHash = window.location.hash.substring(1) || "abstract";
+        showSection(initialHash);
+      });
+
+      // Enhanced Three.js Background with dynamic particles
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0); // Ensure transparency
+      document.body.appendChild(renderer.domElement);
+
+      // Create multiple particle systems for depth and visual interest
+      const particleSystems = [];
+      const colors = [0x3b82f6, 0xf59e0b, 0x8b5cf6, 0x06b6d4, 0xef4444];
+
+      colors.forEach((color, index) => {
+        const particlesCount = 400 - index * 60;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particlesCount * 3);
+        const velocities = new Float32Array(particlesCount * 3);
+        const sizes = new Float32Array(particlesCount);
+
+        for (let i = 0; i < particlesCount; i++) {
+          // Spread particles across a larger area for better coverage
+          positions[i * 3] = (Math.random() - 0.5) * 300;
+          positions[i * 3 + 1] = (Math.random() - 0.5) * 300;
+          positions[i * 3 + 2] = (Math.random() - 0.5) * 200;
+
+          velocities[i * 3] = (Math.random() - 0.5) * 0.015;
+          velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.015;
+          velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.015;
+
+          sizes[i] = Math.random() * 2 + 0.5;
+        }
+
+        geometry.setAttribute(
+          "position",
+          new THREE.BufferAttribute(positions, 3)
+        );
+        geometry.setAttribute(
+          "velocity",
+          new THREE.BufferAttribute(velocities, 3)
+        );
+        geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
+
+        const material = new THREE.PointsMaterial({
+          color: color,
+          size: 2.5 - index * 0.3,
+          transparent: true,
+          opacity: 0.8 - index * 0.12,
+          blending: THREE.AdditiveBlending,
+          sizeAttenuation: true,
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+        particleSystems.push({
+          mesh: particles,
+          geometry: geometry,
+          baseRotationSpeed: 0.0001 * (index + 1),
+          pulsePhase: Math.random() * Math.PI * 2,
+        });
+      });
+
+      // Add some geometric shapes for more visual interest
+      const geometricShapes = [];
+      for (let i = 0; i < 8; i++) {
+        const geometry = new THREE.OctahedronGeometry(
+          0.5 + Math.random() * 1.5
+        );
+        const material = new THREE.MeshBasicMaterial({
+          color: colors[Math.floor(Math.random() * colors.length)],
+          transparent: true,
+          opacity: 0.1,
+          wireframe: true,
+        });
+        const shape = new THREE.Mesh(geometry, material);
+
+        shape.position.set(
+          (Math.random() - 0.5) * 200,
+          (Math.random() - 0.5) * 200,
+          (Math.random() - 0.5) * 100
+        );
+
+        scene.add(shape);
+        geometricShapes.push({
+          mesh: shape,
+          rotationSpeed: {
+            x: (Math.random() - 0.5) * 0.01,
+            y: (Math.random() - 0.5) * 0.01,
+            z: (Math.random() - 0.5) * 0.01,
+          },
+        });
+      }
+
+      camera.position.z = 80;
+      let time = 0;
+
+      // Enhanced animation loop with more dynamic effects
+      function animate() {
+        requestAnimationFrame(animate);
+        time += 0.01;
+
+        particleSystems.forEach((system, systemIndex) => {
+          const positions = system.geometry.attributes.position.array;
+          const velocities = system.geometry.attributes.velocity.array;
+          const sizes = system.geometry.attributes.size.array;
+
+          for (let i = 0; i < positions.length; i += 3) {
+            // Add wave motion for more organic movement
+            const waveOffset = Math.sin(time + i * 0.01) * 0.5;
+
+            positions[i] += velocities[i] + waveOffset * 0.01;
+            positions[i + 1] +=
+              velocities[i + 1] + Math.cos(time + i * 0.01) * 0.005;
+            positions[i + 2] += velocities[i + 2];
+
+            // Wrap around boundaries with smoother transitions
+            if (Math.abs(positions[i]) > 150) {
+              velocities[i] *= -0.8;
+              positions[i] = Math.sign(positions[i]) * 150;
+            }
+            if (Math.abs(positions[i + 1]) > 150) {
+              velocities[i + 1] *= -0.8;
+              positions[i + 1] = Math.sign(positions[i + 1]) * 150;
+            }
+            if (Math.abs(positions[i + 2]) > 100) {
+              velocities[i + 2] *= -0.8;
+              positions[i + 2] = Math.sign(positions[i + 2]) * 100;
+            }
+
+            // Animate particle sizes for breathing effect
+            const sizeIndex = i / 3;
+            sizes[sizeIndex] = 1 + Math.sin(time * 2 + sizeIndex * 0.1) * 0.3;
+          }
+
+          system.geometry.attributes.position.needsUpdate = true;
+          system.geometry.attributes.size.needsUpdate = true;
+
+          // Enhanced rotation with pulsing effect
+          const pulseScale = 1 + Math.sin(time + system.pulsePhase) * 0.1;
+          system.mesh.rotation.y += system.baseRotationSpeed * pulseScale;
+          system.mesh.rotation.x += system.baseRotationSpeed * 0.5 * pulseScale;
+          system.mesh.rotation.z += system.baseRotationSpeed * 0.3;
+        });
+
+        // Animate geometric shapes
+        geometricShapes.forEach((shape) => {
+          shape.mesh.rotation.x += shape.rotationSpeed.x;
+          shape.mesh.rotation.y += shape.rotationSpeed.y;
+          shape.mesh.rotation.z += shape.rotationSpeed.z;
+
+          // Subtle floating motion
+          shape.mesh.position.y +=
+            Math.sin(time + shape.mesh.position.x * 0.01) * 0.02;
+        });
+
+        // Gentle camera movement for depth
+        camera.position.x = Math.sin(time * 0.1) * 2;
+        camera.position.y = Math.cos(time * 0.08) * 1;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Handle window resize
+      window.addEventListener("resize", () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      });
+    </script>
+  </body>
+</html>
