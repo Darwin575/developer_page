@@ -68,7 +68,7 @@ your_repository/
 
 ## Live Demo
 A live demo of the Digital Document Management Poster is available on GitHub Pages.  
-Check it out here: [Live Demo]([https://yourusername.github.io/your_repository/](https://darwin575.github.io/developer_page/))
+Check it out here: [Live Demo](https://yourusername.github.io/your_repository/](https://darwin575.github.io/developer_page/)
 
 
 
