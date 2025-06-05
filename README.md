@@ -39,12 +39,12 @@ To view and test the poster locally, follow these steps:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your_username/your_repository.git
+   git clone https://github.com/Darwin575/developer_page.git
    ```
 
 2. **Navigate to the Directory:**
    ```bash
-   cd your_repository
+   cd developer_page
    ```
 
 3. **Open the HTML File:**
