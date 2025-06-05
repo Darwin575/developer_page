@@ -532,6 +532,57 @@
           font-size: 16px;
         }
       }
+
+      /* Screenshots section update */
+      #screenshots .screenshot-item {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      #screenshots .screenshot-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      #screenshots .screenshot-item img {
+        object-fit: contain;
+        background: transparent;
+      }
+
+      .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .screenshot-item {
+        position: relative;
+        padding-top: 100%; /* Creates a square aspect ratio */
+        background: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .screenshot-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Ensures image isn't stretched */
+        padding: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .screenshots-grid {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 0.5rem;
+          padding: 0.5rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1063,14 +1114,26 @@
           <p>
             Visual demonstration of the Document Tracking System interface and
             functionality:
-          </p>
-          <div class="screenshot-placeholder">
-            <div class="screenshot">Dashboard Overview</div>
-            <div class="screenshot">Document Tracking Interface</div>
-            <div class="screenshot">QR Code Scanner</div>
-            <div class="screenshot">User Management</div>
-            <div class="screenshot">Reports & Analytics</div>
-            <div class="screenshot">Mobile Interface</div>
+          </p>          
+          <div class="screenshots-grid">
+            <div class="screenshot-item">
+              <img src="system_screenshots/Picture2.png" alt="Dashboard Overview">
+            </div>
+            <div class="screenshot-item">
+              <img src="system_screenshots/Picture3.png" alt="Document Tracking Interface">
+            </div>
+            <div class="screenshot-item">
+              <img src="system_screenshots/Picture4.png" alt="QR Code Scanner">
+            </div>
+            <div class="screenshot-item">
+              <img src="system_screenshots/Picture5.png" alt="User Management">
+            </div>
+            <div class="screenshot-item">
+              <img src="system_screenshots/Picture6.png" alt="Reports & Analytics">
+            </div>
+            <div class="screenshot-item">
+              <img src="system_screenshots/Picture7.png" alt="Mobile Interface">
+            </div>
           </div>
         </section>
 
