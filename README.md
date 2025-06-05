@@ -10,8 +10,6 @@ This repository hosts the source code for the **Digital Document Management Post
 - [Installation and Running Locally](#installation-and-running-locally)
 - [Project Structure](#project-structure)
 - [Live Demo](#live-demo)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Overview
@@ -70,18 +68,9 @@ your_repository/
 
 ## Live Demo
 A live demo of the Digital Document Management Poster is available on GitHub Pages.  
-Check it out here: [Live Demo](https://yourusername.github.io/your_repository/)
+Check it out here: [Live Demo]([https://yourusername.github.io/your_repository/](https://darwin575.github.io/developer_page/))
 
-## Contributing
-Contributions, suggestions, and ideas are welcome! If you have improvements or bug fixes to share:
-- Fork the repository.
-- Create a new branch (`git checkout -b feature/YourFeature`).
-- Commit your changes (`git commit -m 'Add new feature'`).
-- Push to your branch (`git push origin feature/YourFeature`).
-- Open a pull request describing your changes.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 For questions or further discussion, please reach out:
@@ -89,6 +78,3 @@ For questions or further discussion, please reach out:
 - **Gerald Darwin Lariosa**  
   Email: [geralddarwindagatan11@gmail.com](mailto:geralddarwindagatan11@gmail.com)
 
----
-
----
