@@ -1,8 +1,4 @@
-Below is the full content for your README. You can simply copy and paste it into your repository's README.md file.
 
----
-
-```markdown
 # Digital Document Management Poster
 
 This repository hosts the source code for the **Digital Document Management Poster**—an interactive, web-based academic poster that presents a comprehensive digital solution for document routing challenges. The poster highlights key methodologies, system architecture, and research findings from the thesis _"Digitizing Document Management: A Web‑Based Tracking System for the RICTMD of the BJMP Region 10."_
@@ -95,9 +91,4 @@ For questions or further discussion, please reach out:
 
 ---
 
-*Feel free to adjust the links, repository names, and any additional details to better reflect your project setup. Happy coding!*
-```
-
 ---
-
-This README provides a comprehensive overview of your project, clear instructions on how to run it locally, and relevant details about its features and technologies. Would you like to discuss any additional customization or integrations such as setting up automated deployments?
