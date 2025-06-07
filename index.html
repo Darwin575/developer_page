@@ -1114,27 +1114,10 @@
           <p>
             Visual demonstration of the Document Tracking System interface and
             functionality:
-          </p>          
-          <div class="screenshots-grid">
-            <div class="screenshot-item">
-              <img src="system_screenshots/Picture2.png" alt="Dashboard Overview">
+          </p>
+        
+          <div class="screenshots-grid" id="screenshot-container">
             </div>
-            <div class="screenshot-item">
-              <img src="system_screenshots/Picture3.png" alt="Document Tracking Interface">
-            </div>
-            <div class="screenshot-item">
-              <img src="system_screenshots/Picture4.png" alt="QR Code Scanner">
-            </div>
-            <div class="screenshot-item">
-              <img src="system_screenshots/Picture5.png" alt="User Management">
-            </div>
-            <div class="screenshot-item">
-              <img src="system_screenshots/Picture6.png" alt="Reports & Analytics">
-            </div>
-            <div class="screenshot-item">
-              <img src="system_screenshots/Picture7.png" alt="Mobile Interface">
-            </div>
-          </div>
         </section>
 
         <!-- Conclusion Section -->
@@ -1175,6 +1158,43 @@
 
     <!-- JavaScript: Enhanced Section Switcher & Three.js Background -->
     <script>
+      const screenshotContainer = document.getElementById('screenshot-container');
+      const imageDescriptions = [
+        "Dashboard Overview", // Picture1.png
+        "Dashboard Overview", // Picture2.png
+        "Document Tracking Interface", // Picture3.png
+        "QR Code Scanner", // Picture4.png
+        "User Management", // Picture5.png
+        "Reports & Analytics", // Picture6.png
+        "Mobile Interface", // Picture7.png
+        "Dashboard Overview", // Picture8.png
+        "Document Details", // Picture9.png (example description)
+        "Advanced Search", // Picture10.png (example description)
+        "User Profile", // Picture11.png (example description)
+        "Settings Panel", // Picture12.png (example description)
+        "Notification Center", // Picture13.png (example description)
+        "Audit Log", // Picture14.png (example description)
+        "Document Upload", // Picture15.png (example description)
+        "Workflow Management", // Picture16.png (example description)
+        "Calendar View", // Picture17.png (example description)
+        "Help Section", // Picture18.png (example description)
+        "About Page", // Picture19.png (example description)
+        "Login Screen", // Picture20.png (example description)
+        "Admin Dashboard", // Picture21.png (example description)
+        "Document History" // Picture22.png (example description)
+      ];
+    
+      for (let i = 1; i <= 22; i++) {
+        const screenshotItem = document.createElement('div');
+        screenshotItem.classList.add('screenshot-item');
+    
+        const img = document.createElement('img');
+        img.src = `system_screenshots/Picture${i}.png`;
+        img.alt = imageDescriptions[i - 1] || `Screenshot ${i}`; 
+    
+        screenshotItem.appendChild(img);
+        screenshotContainer.appendChild(screenshotItem);
+      }
       // Enhanced Section Switching with proper active state management
       document.addEventListener("DOMContentLoaded", function () {
         const navLinks = document.querySelectorAll(".nav-link");
